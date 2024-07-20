@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
-import Header from "../../components/header";
+import Header from "../../components/Header";
 
 export default function Register() {
     const [firstName, setFirstName] = useState("");
@@ -78,7 +78,14 @@ export default function Register() {
                         defaultValue=""
                         type="text"
                         variant="filled"
-                        sx={{ backgroundColor: colors.primary[400] }}
+                        sx={{
+                            backgroundColor: colors.primary[400],
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.3rem', // Adjust the font size as needed
+                                height: '2rem', // Adjust the height of the text area
+                                padding: '2.5rem 1.2rem 0.8rem 1.2rem', // Adjust the padding as needed
+                            },
+                        }}
                         label={
                             <Typography
                                 fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
@@ -102,7 +109,14 @@ export default function Register() {
                         defaultValue=""
                         type="text"
                         variant="filled"
-                        sx={{ backgroundColor: colors.primary[400] }}
+                        sx={{
+                            backgroundColor: colors.primary[400],
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.3rem', // Adjust the font size as needed
+                                height: '2rem', // Adjust the height of the text area
+                                padding: '2.5rem 1.2rem 0.8rem 1.2rem', // Adjust the padding as needed
+                            },
+                        }}
                         label={
                             <Typography
                                 fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
@@ -126,7 +140,14 @@ export default function Register() {
                         defaultValue=""
                         type="text"
                         variant="filled"
-                        sx={{ backgroundColor: colors.primary[400] }}
+                        sx={{
+                            backgroundColor: colors.primary[400],
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.3rem', // Adjust the font size as needed
+                                height: '2rem', // Adjust the height of the text area
+                                padding: '2.5rem 1.2rem 0.8rem 1.2rem', // Adjust the padding as needed
+                            },
+                        }}
                         label={
                             <Typography
                                 fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
@@ -150,7 +171,14 @@ export default function Register() {
                         defaultValue=""
                         type="password"
                         variant="filled"
-                        sx={{ backgroundColor: colors.primary[400] }}
+                        sx={{
+                            backgroundColor: colors.primary[400],
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.3rem', // Adjust the font size as needed
+                                height: '2rem', // Adjust the height of the text area
+                                padding: '2.5rem 1.2rem 0.8rem 1.2rem', // Adjust the padding as needed
+                            },
+                        }}
                         label={
                             <Typography
                                 fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
@@ -168,7 +196,14 @@ export default function Register() {
                         defaultValue=""
                         type="password"
                         variant="filled"
-                        sx={{ backgroundColor: colors.primary[400] }}
+                        sx={{
+                            backgroundColor: colors.primary[400],
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.3rem', // Adjust the font size as needed
+                                height: '2rem', // Adjust the height of the text area
+                                padding: '2.5rem 1.2rem 0.8rem 1.2rem', // Adjust the padding as needed
+                            },
+                        }}
                         label={
                             <Typography
                                 fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
@@ -190,7 +225,8 @@ export default function Register() {
                             "&:hover": {
                                 backgroundColor: colors.greenAccent[600], // Set your desired hover color
                             },
-                            fontSize: '1.2rem'
+                            fontSize: '1.2rem',
+                            borderRadius: '0'
                         }}
                     >
                         Register
@@ -225,7 +261,8 @@ export default function Register() {
                                 "&:hover": {
                                     backgroundColor: colors.primary[500], // Set your desired hover color
                                 },
-                                fontSize: '1.2rem'
+                                fontSize: '1.2rem',
+                                borderRadius: '0'
                             }}
                         >
                             Signup with Google

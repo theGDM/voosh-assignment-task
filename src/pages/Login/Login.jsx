@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 import { ThreeDots } from 'react-loader-spinner';
-import Header from "../../components/header";
+import Header from "../../components/Header";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -80,7 +80,14 @@ export default function Login() {
                         defaultValue=""
                         type="text"
                         variant="filled"
-                        sx={{ backgroundColor: colors.primary[400], fontSize: '1.3rem' }}
+                        sx={{
+                            backgroundColor: colors.primary[400],
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.3rem', // Adjust the font size as needed
+                                height: '2rem', // Adjust the height of the text area
+                                padding: '2.5rem 1.2rem 0.8rem 1.2rem', // Adjust the padding as needed
+                            },
+                        }}
                         label={
                             <Typography
                                 fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
@@ -104,7 +111,15 @@ export default function Login() {
                         defaultValue=""
                         type="password"
                         variant="filled"
-                        sx={{ backgroundColor: colors.primary[400], fontSize: '1.3rem' }}
+                        sx={{
+                            backgroundColor: colors.primary[400],
+                            '& .MuiInputBase-input': {
+                                fontSize: '1.3rem', // Adjust the font size as needed
+                                height: '2rem', // Adjust the height of the text area
+                                padding: '2.5rem 1.2rem 0.8rem 1.2rem', // Adjust the padding as needed
+                            },
+
+                        }}
                         label={
                             <Typography
                                 fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
@@ -127,7 +142,8 @@ export default function Login() {
                             "&:hover": {
                                 backgroundColor: colors.greenAccent[600], // Set your desired hover color
                             },
-                            fontSize: '1.2rem'
+                            fontSize: '1.2rem',
+                            borderRadius: '0'
                         }}
 
                     >
@@ -163,7 +179,8 @@ export default function Login() {
                                 "&:hover": {
                                     backgroundColor: colors.primary[500], // Set your desired hover color
                                 },
-                                fontSize: '1.2rem'
+                                fontSize: '1.2rem',
+                                borderRadius: '0'
                             }}
                         >
                             Login with Google

@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Register from "./pages/register/Register.jsx";
 import Login from "./pages/login/Login.jsx";
 import NotFound from "./pages/not_found/NotFound.jsx";
-import Dashboard from "./pages/dashboard/dashboard.jsx";
+import Dashboard from "./pages/dashboard/Dashboard.jsx";
 
 const App = () => {
   const [theme, colorMode] = useMode();

@@ -19,7 +19,7 @@ export default function Header() {
     }
 
     return (
-        <Box width='100vw' position='absolute' height='8vh' display='flex' flexDirection='row' alignItems='center' justifyContent='space-between' top='0' bgcolor={colors.primary[500]} p='0 10px' sx={{ boxShadow: "0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.9)" }}>
+        <Box width='100vw' height='8vh' display='flex' flexDirection='row' alignItems='center' justifyContent='space-between' bgcolor={colors.primary[500]} p='0 10px' sx={{ boxShadow: "0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.9)" }}>
             <img src={task} style={{ height: '80%' }} />
             <Box display='flex' flexDirection='row' alignItems='center' justifyContent='center'>
                 <Button
@@ -32,7 +32,8 @@ export default function Header() {
                         "&:hover": {
                             backgroundColor: colors.greenAccent[600], // Set your desired hover color
                         },
-                        fontSize: '1.2rem'
+                        fontSize: '1.2rem',
+                        borderRadius: '0'
                     }}
                     onClick={() => handleNavigation('login')}
                 >
@@ -50,7 +51,8 @@ export default function Header() {
                             "&:hover": {
                                 backgroundColor: colors.greenAccent[600], // Set your desired hover color
                             },
-                            fontSize: '1.2rem'
+                            fontSize: '1.2rem',
+                            borderRadius: '0'
                         }}
                         onClick={() => handleNavigation('register')}
                     >

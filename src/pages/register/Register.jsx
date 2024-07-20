@@ -12,11 +12,14 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
+import Header from "../../components/header";
 
 export default function Register() {
-    const [fullName, setFullName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [isRegistered, setRegistered] = useState(false);
     const theme = useTheme();
     const navigate = useNavigate();
@@ -31,9 +34,14 @@ export default function Register() {
         navigate('/');
     };
 
+    const handleNavigation = () => {
+        navigate('/')
+    }
+
 
     return (
         <Box width='100vw' height='100vh' position='relative' sx={{ backgroundImage: `url(${backgroundImageUrl})`, backgroundSize: "cover", imageOrientation: 'landscape', }}>
+            <Header />
             <Box
                 sx={{
                     display: "flex",
@@ -46,21 +54,23 @@ export default function Register() {
                     opacity: '0.95',
                     transform: 'translate(-50%, -50%)',
                     backgroundColor: colors.primary[600],
-                    padding: "3rem",
+                    padding: "2rem",
                     borderRadius: "0.5rem",
-                    boxShadow: "3px 3px 3px rgba(0, 0, 0, 0.9)",
+                    boxShadow: "0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.9)",
                 }}
             >
-                <Avatar sx={{ m: 1, bgcolor: colors.greenAccent[500] }}>
+                <Avatar sx={{ m: '0.5rem', bgcolor: colors.greenAccent[500] }}>
                     <LockOutlinedIcon color={colors.greenAccent[500]} />
                 </Avatar>
-                <Typography component="h1" variant="h5" fontWeight='600' color={colors.greenAccent[500]}>
-                    Register
+                <Typography component="h1" fontSize='1.6rem' fontWeight='600' color={colors.greenAccent[500]}>
+                    Sign Up
                 </Typography>
                 <Box
                     component="form"
                     onSubmit={handleSubmit}
-                    sx={{ mt: 1 }}
+                    sx={{ mt: '0.1rem' }}
+                    width='35rem'
+                    p='0rem 2rem'
                 >
                     <TextField
                         id="filled-required"
@@ -71,21 +81,21 @@ export default function Register() {
                         sx={{ backgroundColor: colors.primary[400] }}
                         label={
                             <Typography
-                                variant="h6" sx={{ color: colors.greenAccent[500] }}
+                                fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
                             >
-                                Full Name
+                                First Name
                             </Typography>
                         }
                         FormHelperTextProps={{
                             style: {
                                 color: colors.greenAccent[500],
-                                fontSize: '14px'
+                                fontSize: '1.3rem'
                             },
                         }}
-                        onChange={(e) => setFullName(e.target.value)}
+                        onChange={(e) => setFirstName(e.target.value)}
                         autoFocus
                     />
-                    <Box height='15px'></Box>
+                    <Box height='1.5rem'></Box>
                     <TextField
                         id="filled-required"
                         fullWidth
@@ -95,21 +105,45 @@ export default function Register() {
                         sx={{ backgroundColor: colors.primary[400] }}
                         label={
                             <Typography
-                                variant="h6" sx={{ color: colors.greenAccent[500] }}
+                                fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
                             >
-                                Email Address
+                                Last Name
                             </Typography>
                         }
                         FormHelperTextProps={{
                             style: {
                                 color: colors.greenAccent[500],
-                                fontSize: '14px'
+                                fontSize: '1.3rem'
+                            },
+                        }}
+                        onChange={(e) => setLastName(e.target.value)}
+                        autoFocus
+                    />
+                    <Box height='1.5rem'></Box>
+                    <TextField
+                        id="filled-required"
+                        fullWidth
+                        defaultValue=""
+                        type="text"
+                        variant="filled"
+                        sx={{ backgroundColor: colors.primary[400] }}
+                        label={
+                            <Typography
+                                fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
+                            >
+                                Email
+                            </Typography>
+                        }
+                        FormHelperTextProps={{
+                            style: {
+                                color: colors.greenAccent[500],
+                                fontSize: '1.3rem'
                             },
                         }}
                         onChange={(e) => setEmail(e.target.value)}
                         autoFocus
                     />
-                    <Box height='15px'></Box>
+                    <Box height='1.5rem'></Box>
                     <TextField
                         id="filled-required"
                         fullWidth
@@ -119,7 +153,7 @@ export default function Register() {
                         sx={{ backgroundColor: colors.primary[400] }}
                         label={
                             <Typography
-                                variant="h6" sx={{ color: colors.greenAccent[500] }}
+                                fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
                             >
                                 Password
                             </Typography>
@@ -127,18 +161,36 @@ export default function Register() {
                         onChange={(e) => setPassword(e.target.value)}
                         autoFocus
                     />
-
+                    <Box height='1.5rem'></Box>
+                    <TextField
+                        id="filled-required"
+                        fullWidth
+                        defaultValue=""
+                        type="password"
+                        variant="filled"
+                        sx={{ backgroundColor: colors.primary[400] }}
+                        label={
+                            <Typography
+                                fontSize='1.3rem' sx={{ color: colors.greenAccent[500] }}
+                            >
+                                Confirm Password
+                            </Typography>
+                        }
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        autoFocus
+                    />
                     {isRegistered == false ? <Button
                         type="submit"
                         fullWidth
                         variant="contained"
                         sx={{
-                            mt: 3,
-                            mb: 2,
+                            mt: '1.5rem',
+                            mb: '1rem',
                             backgroundColor: colors.greenAccent[500],
                             "&:hover": {
                                 backgroundColor: colors.greenAccent[600], // Set your desired hover color
                             },
+                            fontSize: '1.2rem'
                         }}
                     >
                         Register
@@ -154,6 +206,31 @@ export default function Register() {
                             visible={true}
                         />
                     </Box>}
+                    <Box display='flex' flexDirection='row' justifyContent='center'>
+                        <Typography fontSize='1.2rem' color={colors.greenAccent[200]}>
+                            Already have an account?&nbsp;
+                        </Typography>
+                        <Typography fontSize='1.2rem' fontWeight="600" color={colors.greenAccent[500]} sx={{ cursor: 'pointer' }} onClick={handleNavigation}>
+                            Log In
+                        </Typography>
+                    </Box>
+                    <Box display='flex' flexDirection='row' justifyContent='center' alignItems='center' mt='1rem'>
+                        <Button
+                            type="button"
+                            variant="contained"
+                            sx={{
+                                mt: '0.3rem',
+                                mb: '0.2rem',
+                                backgroundColor: colors.primary[400],
+                                "&:hover": {
+                                    backgroundColor: colors.primary[500], // Set your desired hover color
+                                },
+                                fontSize: '1.2rem'
+                            }}
+                        >
+                            Signup with Google
+                        </Button>
+                    </Box>
                 </Box>
             </Box>
         </Box>

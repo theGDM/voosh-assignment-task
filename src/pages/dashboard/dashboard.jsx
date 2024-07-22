@@ -192,8 +192,8 @@ const Dashboard = () => {
                         </Box>
                     </Box>
                     <Box mt='2rem'>
-                        <Grid container spacing={3}>
-                            <Grid item xs={4} direction={isMobile ? 'column' : 'row'}>
+                        <Grid container spacing={3} direction={isMobile ? 'column' : 'row'}>
+                            <Grid item xs={4} >
                                 <Box height='50rem'
                                     bgcolor={colors.primary[400]}
                                     display='flex'

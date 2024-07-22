@@ -26,7 +26,7 @@ const Dashboard = () => {
     let [inProcess, setInProcess] = useState([]);
     let [completed, setCompleted] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
         let userId = localStorage.getItem('userId');
@@ -207,7 +207,7 @@ const Dashboard = () => {
                                     <Droppable droppableId="todoslist">
                                         {
                                             (provided) => (
-                                                <Box height='100%' mt='1rem' pr='0.5rem' scrollBehavior='auto' overflow='auto' ref={provided.innerRef} {...provided.droppableProps}>
+                                                <Box width='100%' height='100%' mt='1rem' pr='0.5rem' scrollBehavior='auto' overflow='auto' ref={provided.innerRef} {...provided.droppableProps}>
                                                     {todos.map((task, index) => (
                                                         <TaskCard key={task._id} task={task} taskType='todo' index={index} />
                                                     ))}
@@ -233,7 +233,7 @@ const Dashboard = () => {
                                     <Droppable droppableId="inprocesslist">
                                         {
                                             (provided) => (
-                                                <Box height='100%' mt='1rem' pr='0.5rem' scrollBehavior='auto' overflow='auto' ref={provided.innerRef} {...provided.droppableProps}>
+                                                <Box width='100%' height='100%' mt='1rem' pr='0.5rem' scrollBehavior='auto' overflow='auto' ref={provided.innerRef} {...provided.droppableProps}>
                                                     {inProcess.map((task, index) => (
                                                         <TaskCard key={task._id} task={task} taskType='inprocess' index={index} />
                                                     ))}
@@ -259,7 +259,7 @@ const Dashboard = () => {
                                     <Droppable droppableId="completedlist">
                                         {
                                             (provided) => (
-                                                <Box height='100%' mt='1rem' pr='0.5rem' scrollBehavior='auto' overflow='auto' ref={provided.innerRef} {...provided.droppableProps}>
+                                                <Box width='100%' height='100%' mt='1rem' pr='0.5rem' scrollBehavior='auto' overflow='auto' ref={provided.innerRef} {...provided.droppableProps}>
                                                     {completed.map((task, index) => (
                                                         <TaskCard key={task._id} task={task} taskType='completed' index={index} />
                                                     ))}
@@ -272,10 +272,10 @@ const Dashboard = () => {
                             </Grid>
                         </Grid>
                     </Box>
-                </Box>
+                </Box >
                 {isCreateTaskModalOpen && <CreateTask isOpen={openCreateTaskModal} onClose={closeCreateTaskModal} />}
             </Box >
-        </DragDropContext>
+        </DragDropContext >
     );
 };
 

@@ -29,6 +29,6 @@ body {
 /* Media query for mobile devices */
 @media (max-width: 600px) {
   html {
-    font-size: 50%;
+    font-size: 45%;
   }
 }

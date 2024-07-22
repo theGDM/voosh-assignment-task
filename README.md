@@ -36,6 +36,7 @@
 - Used Git to track changes in the code. ✅
 - Task due dates and reminders. ✅
 - Task sorting and searching capabilities. ✅
+- Intuitive Insterface and responsive UI. ✅
 
 ## **Steps to Run the Application (Locally):**
 1. Firstly fork the given repo.

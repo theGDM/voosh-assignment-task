@@ -75,6 +75,8 @@ export default function Login() {
                 dispatch(SetUser(response));
                 navigate('/dashboard');
             }
+        }).catch((err) => {
+            console.log(err);
         });
     }
 

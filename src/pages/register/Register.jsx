@@ -81,6 +81,8 @@ export default function Register() {
                 localStorage.setItem('userId', response._id);
                 navigate('/dashboard');
             }
+        }).catch((err) => {
+            console.log(err);
         });
     }
 
@@ -94,7 +96,6 @@ export default function Register() {
                     flexDirection: "column",
                     alignItems: "center",
                     position: 'absolute',
-                    width: '400px',
                     top: '50%',
                     left: '50%',
                     opacity: '0.95',

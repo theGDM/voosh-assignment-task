@@ -15,6 +15,8 @@ import { ThreeDots } from 'react-loader-spinner';
 import Header from "../../components/Header";
 import { signIn } from "../../services/api";
 import { SetUser } from "../../actions/UserAction";
+import { auth, provider } from "../../config";
+import { signInWithPopup } from "firebase/auth";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -62,6 +64,13 @@ export default function Login() {
             navigate('/dashboard');
         }
     };
+
+    const handleGoogleSignIn = () => {
+        signInWithPopup(auth, provider).then((data) => {
+            localStorage.setItem("userEmail", data.user.email);
+            console.log(data.user);
+        });
+    }
 
     return (
         <Box width='100vw' height='100vh' position='relative' sx={{ backgroundImage: `url(${backgroundImageUrl})`, backgroundSize: "cover", imageOrientation: 'landscape', }}>
@@ -205,6 +214,8 @@ export default function Login() {
                                 fontSize: '1.2rem',
                                 borderRadius: '0'
                             }}
+
+                            onClick={handleGoogleSignIn}
                         >
                             Login with Google
                         </Button>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, TextField, Typography, useMediaQuery } from "@mui/material";
 import Modal from 'react-modal';
 import { useTheme } from '@emotion/react';
 import { tokens } from '../theme';
@@ -25,13 +25,14 @@ export default function UpdateTask({ isOpen, onClose, task }) {
     const [value, setValue] = useState('');
     const dispatch = useDispatch();
     const [isTaskUpdated, setTaskUpdated] = useState(false);
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     const modalStyle = {
         content: {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '30%',
+            width: isMobile ? '95%' : '30%',
             height: '80%',
             backgroundColor: colors.primary[400],
             borderRadius: '1rem',

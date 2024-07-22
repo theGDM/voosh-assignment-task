@@ -8,7 +8,6 @@
 <p float="left">
   <img src="" width="320" />
   <img src="" width="320" /> 
-  <img src="" width="320" /> 
 </p>
 
 ## **Tech Used :**

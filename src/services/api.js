@@ -71,4 +71,16 @@ export const getAllTasks = async (userId) => {
         console.log(err);
         toast('Some error occured while deleting the task!');
     }
-} 
+}
+
+export const getUser = async (email) => {
+    try {
+        let response = await axios.get(`${baseURL}/api/users/${email}`);
+        return response.data;
+    } catch (err) {
+        console.log(err);
+        toast('Some error occured while getting user!');
+    }
+}
+
+

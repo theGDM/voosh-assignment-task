@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 import { ThreeDots } from 'react-loader-spinner';
 import Header from "../../components/Header";
-import { signIn } from "../../services/api";
+import { getUser, signIn } from "../../services/api";
 import { SetUser } from "../../actions/UserAction";
 import { auth, provider } from "../../config";
 import { signInWithPopup } from "firebase/auth";
@@ -66,9 +66,17 @@ export default function Login() {
     };
 
     const handleGoogleSignIn = () => {
-        signInWithPopup(auth, provider).then((data) => {
-            localStorage.setItem("userEmail", data.user.email);
-            console.log(data.user);
+        signInWithPopup(auth, provider).then(async (data) => {
+            let response = await getUser(data.user.email);
+            console.log(response);
+            if (response.message != null) {
+                toast(response.message);
+            } else {
+                localStorage.setItem("userEmail", response.email);
+                localStorage.setItem('userId', response._id);
+                dispatch(SetUser(response));
+                navigate('/dashboard');
+            }
         });
     }
 

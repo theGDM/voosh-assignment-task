@@ -25,3 +25,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-family: "Lexend Deca", sans-serif;
 }
+
+/* Media query for mobile devices */
+@media (max-width: 600px) {
+  html {
+    font-size: 50%;
+  }
+}

@@ -13,6 +13,8 @@ import { useDispatch } from "react-redux";
 import { toast } from 'react-toastify';
 import { ThreeDots } from 'react-loader-spinner';
 import Header from "../../components/Header";
+import { signIn } from "../../services/api";
+import { SetUser } from "../../actions/UserAction";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -30,15 +32,24 @@ export default function Login() {
     }, []);
 
     const handleNavigation = () => {
-        navigate('/register')
+        navigate('/register');
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoggedIn(true);
-        // let response = await sign_in(email, password);
+        let response = await signIn(email, password);
         setLoggedIn(false);
-        // toast(response.message);
+        console.log(response);
+
+        if (response.message != null) {
+            toast(response.message);
+        } else {
+            localStorage.setItem("userEmail", response.email);
+            localStorage.setItem('userId', response._id);
+            dispatch(SetUser(response));
+            navigate('/dashboard');
+        }
     };
 
     return (
@@ -145,13 +156,14 @@ export default function Login() {
                             fontSize: '1.2rem',
                             borderRadius: '0'
                         }}
+                        onClick={handleSubmit}
 
                     >
                         Log In
                     </Button> : <Box display='flex' justifyContent='center' alignItems='center'>
                         <ThreeDots
-                            height="80"
-                            width="80"
+                            height="8rem"
+                            width="8rem"
                             radius="9"
                             color={colors.greenAccent[600]}
                             ariaLabel="three-dots-loading"

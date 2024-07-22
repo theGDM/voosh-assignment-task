@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
 import Header from "../../components/Header";
+import { register } from "../../services/api";
 
 export default function Register() {
     const [firstName, setFirstName] = useState("");
@@ -27,10 +28,15 @@ export default function Register() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (password != confirmPassword) {
+            toast('Password mismatch! please enter exact password.');
+            return;
+        }
         setRegistered(true);
-        // let data = await add_user(fullName, email, password);
+        let fullName = firstName + " " + lastName;
+        let response = await register(fullName, email, password);
         setRegistered(false);
-        // toast(data.message);
+        toast(response.message);
         navigate('/');
     };
 

@@ -1,4 +1,7 @@
 ## **Website View :**
+![Screenshot 2024-07-22 175412](https://github.com/user-attachments/assets/b90d4beb-4d89-4ef7-a615-83aa52b024a0)
+![Screenshot 2024-07-22 175936](https://github.com/user-attachments/assets/cb43a1df-67fd-430f-b0ef-4d345e894965)
+![Screenshot 2024-07-22 180030](https://github.com/user-attachments/assets/a8c8ee52-095a-41f9-b10b-5179d10a3f52)
 
 
 ## **Mobile View :**

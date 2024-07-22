@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { useTheme } from '@emotion/react';
 import { tokens } from '../theme';
 
-export default function DetailsDialog({ isOpen, onClose }) {
+export default function DetailsDialog({ isOpen, onClose, task }) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const modalStyle = {
@@ -73,7 +73,7 @@ export default function DetailsDialog({ isOpen, onClose }) {
                         fontSize='1.6rem'
                         display='inline'
                     >
-                        Going Park for walk.
+                        {task.title}
                     </Typography>
                 </Box>
                 <Box display='inline'>
@@ -91,7 +91,7 @@ export default function DetailsDialog({ isOpen, onClose }) {
                         fontSize='1.6rem'
                         display='inline'
                     >
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officia culpa perspiciatis, deleniti autem natus doloremque et quae ullam velit consectetur nisi reprehenderit dolor adipisci. Ea aliquam ipsum a beatae doloremque!lorem
+                        {task.description}
 
                     </Typography>
                 </Box>
@@ -110,7 +110,25 @@ export default function DetailsDialog({ isOpen, onClose }) {
                         fontSize='1.6rem'
                         display='inline'
                     >
-                        2024-07-24
+                        {task.createdAt.split('T')[0]}
+                    </Typography>
+                </Box>
+                <Box display='flex' alignItems='start'>
+                    <Typography
+                        fontWeight='400'
+                        lineHeight='1.5'
+                        fontSize='1.6rem'
+                        display='inline'
+                    >
+                        Task Deadline:&nbsp;
+                    </Typography>
+                    <Typography
+                        color='rgb(77, 89, 106)'
+                        fontWeight='300'
+                        fontSize='1.6rem'
+                        display='inline'
+                    >
+                        {task.taskDeadline}
                     </Typography>
                 </Box>
             </Box>

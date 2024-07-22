@@ -11,6 +11,10 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useSelector, useDispatch } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
+import { createTask } from '../services/api';
+import { toast } from 'react-toastify';
+import { ThreeDots } from 'react-loader-spinner';
+import { fetchTasksData } from '../actions/TaskDataAction';
 
 export default function CreateTask({ isOpen, onClose }) {
     const theme = useTheme();
@@ -19,6 +23,7 @@ export default function CreateTask({ isOpen, onClose }) {
     const [desc, setDesc] = useState("");
     const [endDate, setEndDate] = useState("");
     const [value, setValue] = useState('');
+    const [isTaskCreated, setTaskCreated] = useState(false);
     const dispatch = useDispatch();
 
     const modalStyle = {
@@ -43,6 +48,7 @@ export default function CreateTask({ isOpen, onClose }) {
         const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // Month (01-12)
         const day = String(selectedDate.getDate()).padStart(2, '0'); // Day of the month (01-31)
         const formattedDate = year.toString() + '-' + month + '-' + day;
+        setEndDate(formattedDate);
     }
 
     useEffect(() => {
@@ -52,6 +58,30 @@ export default function CreateTask({ isOpen, onClose }) {
         const day = String(selectedDate.getDate()).padStart(2, '0'); // Day of the month (01-31)
         const formattedDate = year.toString() + '-' + month + '-' + day;
     }, []);
+
+    const createTaskHandler = async () => {
+        if (title == '') {
+            toast('Title of the task can not be empty!');
+            return;
+        }
+
+        if (desc == '') {
+            toast('Description of the task can not be empty!');
+            return;
+        }
+
+        if (endDate == '') {
+            toast('Please select the end date of the task!');
+            return;
+        }
+
+        let userId = localStorage.getItem('userId');
+        setTaskCreated(true);
+        await createTask(userId, title, desc, endDate);
+        dispatch(fetchTasksData(userId));
+        setTaskCreated(false);
+        onClose();
+    }
 
     const StyledButton = styled(IconButton)(({ theme }) => ({
         borderRadius: theme.shape.borderRadius,
@@ -193,12 +223,13 @@ export default function CreateTask({ isOpen, onClose }) {
                                     color: 'secondary',
                                 },
                             }}
+                            onChange={(date) => SelectDateHandler(date)}
 
                         />
                     </DemoContainer>
                 </LocalizationProvider>
             </Box>
-            <Box display='flex' flexDirection='row' position='absolute'
+            {isTaskCreated == false ? <Box display='flex' flexDirection='row' position='absolute'
                 right='1rem'
                 bottom='0'>
                 <Button
@@ -215,6 +246,7 @@ export default function CreateTask({ isOpen, onClose }) {
                         fontSize: '1.2rem',
                         borderRadius: '0',
                     }}
+                    onClick={createTaskHandler}
                 >
                     Create
                 </Button>
@@ -236,6 +268,21 @@ export default function CreateTask({ isOpen, onClose }) {
                     Close
                 </Button>
             </Box>
+                : <Box display='flex' justifyContent='center' alignItems='center' position='absolute'
+                    right='1rem'
+                    bottom='0'>
+                    <ThreeDots
+                        height="4rem"
+                        width="4rem"
+                        radius="5"
+                        color={colors.greenAccent[600]}
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}
+                    />
+                </Box>
+            }
 
         </Modal >
     );

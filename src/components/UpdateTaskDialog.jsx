@@ -11,8 +11,12 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useSelector, useDispatch } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
+import { ThreeDots } from 'react-loader-spinner';
+import { toast } from 'react-toastify';
+import { updateTask } from '../services/api';
+import { fetchTasksData } from '../actions/TaskDataAction';
 
-export default function UpdateTask({ isOpen, onClose }) {
+export default function UpdateTask({ isOpen, onClose, task }) {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [title, setTitle] = useState("");
@@ -20,6 +24,7 @@ export default function UpdateTask({ isOpen, onClose }) {
     const [endDate, setEndDate] = useState("");
     const [value, setValue] = useState('');
     const dispatch = useDispatch();
+    const [isTaskUpdated, setTaskUpdated] = useState(false);
 
     const modalStyle = {
         content: {
@@ -37,25 +42,48 @@ export default function UpdateTask({ isOpen, onClose }) {
         },
     };
 
+    useEffect(() => {
+        setTitle(task.title);
+        setDesc(task.description);
+        setEndDate(task.endDate);
+    }, []);
+
     const SelectDateHandler = (date) => {
         const selectedDate = new Date(date['$d']);
-
         const year = selectedDate.getFullYear(); // Full year (e.g., 2023)
         const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // Month (01-12)
         const day = String(selectedDate.getDate()).padStart(2, '0'); // Day of the month (01-31)
-
         const formattedDate = year.toString() + '-' + month + '-' + day;
+        setEndDate(formattedDate);
     }
 
-    useEffect(() => {
-        const selectedDate = new Date();
+    const handleUpdateTask = async () => {
+        if (title == '') {
+            toast('Title of the task can not be empty!');
+            return;
+        }
 
-        const year = selectedDate.getFullYear(); // Full year (e.g., 2023)
-        const month = String(selectedDate.getMonth() + 1).padStart(2, '0'); // Month (01-12)
-        const day = String(selectedDate.getDate()).padStart(2, '0'); // Day of the month (01-31)
+        if (desc == '') {
+            toast('Description of the task can not be empty!');
+            return;
+        }
 
-        const formattedDate = year.toString() + '-' + month + '-' + day;
-    }, []);
+        if (endDate == '') {
+            toast('Please select the end date of the task!');
+            return;
+        }
+
+        let userId = localStorage.getItem('userId');
+        setTaskUpdated(true);
+        await updateTask(task._id, {
+            'title': title,
+            'description': desc,
+            'taskDeadline': endDate
+        });
+        dispatch(fetchTasksData(userId));
+        setTaskUpdated(false);
+        onClose();
+    }
 
     const StyledButton = styled(IconButton)(({ theme }) => ({
         borderRadius: theme.shape.borderRadius,
@@ -108,6 +136,7 @@ export default function UpdateTask({ isOpen, onClose }) {
                     id="filled-required"
                     fullWidth
                     defaultValue=""
+                    value={title}
                     type="text"
                     variant="filled"
                     sx={{
@@ -139,6 +168,7 @@ export default function UpdateTask({ isOpen, onClose }) {
                     id="filled-required"
                     fullWidth
                     defaultValue=""
+                    value={desc}
                     type="text"
                     variant="filled"
                     sx={{
@@ -184,7 +214,7 @@ export default function UpdateTask({ isOpen, onClose }) {
                                     padding: '2.5rem 1.2rem 0.8rem 1.2rem', // Adjust the padding as needed
                                 },
                             }}
-                            value={value}
+                            value={dayjs(task.taskDeadline)}
                             slots={{
                                 day: StyledDay,
                             }}
@@ -197,12 +227,12 @@ export default function UpdateTask({ isOpen, onClose }) {
                                     color: 'secondary',
                                 },
                             }}
-
+                            onChange={(date) => SelectDateHandler(date)}
                         />
                     </DemoContainer>
                 </LocalizationProvider>
             </Box>
-            <Box display='flex' flexDirection='row' position='absolute'
+            {isTaskUpdated == false ? <Box display='flex' flexDirection='row' position='absolute'
                 right='1rem'
                 bottom='0'>
                 <Button
@@ -219,6 +249,7 @@ export default function UpdateTask({ isOpen, onClose }) {
                         fontSize: '1.2rem',
                         borderRadius: '0',
                     }}
+                    onClick={handleUpdateTask}
                 >
                     SAVE
                 </Button>
@@ -240,6 +271,21 @@ export default function UpdateTask({ isOpen, onClose }) {
                     Close
                 </Button>
             </Box>
+                : <Box display='flex' justifyContent='center' alignItems='center' position='absolute'
+                    right='1rem'
+                    bottom='0'>
+                    <ThreeDots
+                        height="4rem"
+                        width="4rem"
+                        radius="5"
+                        color={colors.greenAccent[600]}
+                        ariaLabel="three-dots-loading"
+                        wrapperStyle={{}}
+                        wrapperClassName=""
+                        visible={true}
+                    />
+                </Box>
+            }
         </Modal >
     );
 }

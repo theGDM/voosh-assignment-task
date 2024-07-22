@@ -39,7 +39,6 @@ export default function Login() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         if (email == '') {
             toast('Please enter the email address!');
             return;
@@ -53,7 +52,6 @@ export default function Login() {
         setLoggedIn(true);
         let response = await signIn(email, password);
         setLoggedIn(false);
-        console.log(response);
 
         if (response.message != null) {
             toast(response.message);

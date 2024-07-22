@@ -1,4 +1,4 @@
-import { Box, Button, MenuItem, Select, TextField, Grid } from "@mui/material";
+import { Box, Button, MenuItem, Select, TextField, Grid, useMediaQuery } from "@mui/material";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -26,6 +26,7 @@ const Dashboard = () => {
     let [inProcess, setInProcess] = useState([]);
     let [completed, setCompleted] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     useEffect(() => {
         let userId = localStorage.getItem('userId');
@@ -192,7 +193,7 @@ const Dashboard = () => {
                     </Box>
                     <Box mt='2rem'>
                         <Grid container spacing={3}>
-                            <Grid item xs={4}>
+                            <Grid item xs={4} direction={isMobile ? 'column' : 'row'}>
                                 <Box height='50rem'
                                     bgcolor={colors.primary[400]}
                                     display='flex'

@@ -13,7 +13,10 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { ThreeDots } from "react-loader-spinner";
 import Header from "../../components/Header";
-import { register } from "../../services/api";
+import { getUser, register } from "../../services/api";
+import { auth, provider } from "../../config";
+import { signInWithPopup } from "firebase/auth";
+import { useDispatch } from "react-redux";
 
 export default function Register() {
     const [firstName, setFirstName] = useState("");
@@ -24,6 +27,7 @@ export default function Register() {
     const [isRegistered, setRegistered] = useState(false);
     const theme = useTheme();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const colors = tokens(theme.palette.mode);
 
     const handleSubmit = async (event) => {
@@ -62,6 +66,22 @@ export default function Register() {
 
     const handleNavigation = () => {
         navigate('/')
+    }
+
+    const handleGoogleSignUp = () => {
+        signInWithPopup(auth, provider).then(async (data) => {
+            console.log(data);
+            await register(data.user.displayName, email, '12345');
+            let response = await getUser(data.user.email);
+            console.log(response);
+            if (response.message != null) {
+                toast(response.message);
+            } else {
+                localStorage.setItem("userEmail", response.email);
+                localStorage.setItem('userId', response._id);
+                navigate('/dashboard');
+            }
+        });
     }
 
 
@@ -290,6 +310,7 @@ export default function Register() {
                                 fontSize: '1.2rem',
                                 borderRadius: '0'
                             }}
+                            onClick={handleGoogleSignUp}
                         >
                             Signup with Google
                         </Button>

@@ -3,11 +3,11 @@
 ![Screenshot 2024-07-22 175936](https://github.com/user-attachments/assets/cb43a1df-67fd-430f-b0ef-4d345e894965)
 ![Screenshot 2024-07-22 180030](https://github.com/user-attachments/assets/a8c8ee52-095a-41f9-b10b-5179d10a3f52)
 
-
 ## **Mobile View :**
 <p float="left">
-  <img src="" width="320" />
-  <img src="" width="320" /> 
+  <img src="https://github.com/user-attachments/assets/8508855f-de51-40a0-b64a-3bf19480ea25" width="320" />
+  <img src="https://github.com/user-attachments/assets/255cb1d8-2302-43b1-9933-b563462c5d2c" width="320" /> 
+  <img src="https://github.com/user-attachments/assets/f2befe65-78ff-4091-806e-b260355e1e2d" width="320" /> 
 </p>
 
 ## **Tech Used :**

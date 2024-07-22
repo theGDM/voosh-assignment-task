@@ -28,6 +28,26 @@ export default function Register() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (firstName == '') {
+            toast('Please enter the first name!');
+            return;
+        }
+
+        if (lastName == '') {
+            toast('Please enter the last name!');
+            return;
+        }
+
+        if (email == '') {
+            toast('Please enter the email address!');
+            return;
+        }
+
+        if (password == '') {
+            toast('Password can not be empty!');
+            return;
+        }
+
         if (password != confirmPassword) {
             toast('Password mismatch! please enter exact password.');
             return;

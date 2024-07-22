@@ -71,7 +71,7 @@ export default function Register() {
     const handleGoogleSignUp = () => {
         signInWithPopup(auth, provider).then(async (data) => {
             console.log(data);
-            await register(data.user.displayName, email, '12345');
+            await register(data.user.displayName, data.user.email, '12345');
             let response = await getUser(data.user.email);
             console.log(response);
             if (response.message != null) {

@@ -17,7 +17,7 @@ const Dashboard = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const dispatch = useDispatch();
-    const [filterValue, setFilterValue] = useState('');
+    const [filterValue, setFilterValue] = useState(0);
     const [isCreateTaskModalOpen, setCreateTaskModal] = useState(false);
     const openCreateTaskModal = () => setCreateTaskModal(true);
     const closeCreateTaskModal = () => setCreateTaskModal(false);
@@ -34,7 +34,7 @@ const Dashboard = () => {
     }, []);
 
     useEffect(() => {
-        const filteredTasks = tasksData?.tasks.filter(task =>
+        let filteredTasks = tasksData?.tasks.filter(task =>
             task.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
 
@@ -48,7 +48,38 @@ const Dashboard = () => {
     }, [tasksData.tasks, searchTerm]);
 
     const handleChange = (e) => {
+        console.log(e.target.value);
         setFilterValue(e.target.value);
+
+        if (e.target.value != -1) {
+            const filteredTasks = tasksData?.tasks.filter((task) => {
+                const createdAt = new Date(task.createdAt.split('T')[0]);
+                const taskDeadline = new Date(task.taskDeadline);
+                const differenceInTime = taskDeadline - createdAt;
+                const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+                return differenceInDays === e.target.value;
+            });
+
+            const todos = filteredTasks.filter(task => task.column === 0);
+            const inprocess = filteredTasks.filter(task => task.column === 1);
+            const completed = filteredTasks.filter(task => task.column === 2);
+
+            setTodos(todos);
+            setInProcess(inprocess);
+            setCompleted(completed);
+        } else {
+            let filteredTasks = tasksData?.tasks.filter(task =>
+                task.title.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+
+            const todos = filteredTasks.filter(task => task.column === 0);
+            const inprocess = filteredTasks.filter(task => task.column === 1);
+            const completed = filteredTasks.filter(task => task.column === 2);
+
+            setTodos(todos);
+            setInProcess(inprocess);
+            setCompleted(completed);
+        }
     };
 
     const onDragEnd = (result) => {
@@ -184,9 +215,15 @@ const Dashboard = () => {
                                     }
                                 }}
                             >
-                                <MenuItem value={10}>Recent</MenuItem>
-                                <MenuItem value={20}>1 day left</MenuItem>
-                                <MenuItem value={30}>2 day left</MenuItem>
+                                <MenuItem value={-1}>Clear</MenuItem>
+                                <MenuItem value={1}>1 day left</MenuItem>
+                                <MenuItem value={3}>2 day left</MenuItem>
+                                <MenuItem value={3}>3 day left</MenuItem>
+                                <MenuItem value={4}>4 day left</MenuItem>
+                                <MenuItem value={5}>5 day left</MenuItem>
+                                <MenuItem value={6}>6 day left</MenuItem>
+                                <MenuItem value={7}>7 day left</MenuItem>
+                                <MenuItem value={8}>8 day left</MenuItem>
                             </Select>
 
                         </Box>
